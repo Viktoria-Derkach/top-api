@@ -6,6 +6,7 @@ export enum TopLevelCategory {
 }
 
 export class TopPageModel {
+  _id: string;
   firstLevelCategory: TopLevelCategory;
   secondCategory: string;
   title: string;
@@ -15,7 +16,6 @@ export class TopPageModel {
     juniorSalary: number;
     middleSalary: number;
     seniorSalary: number;
-
   };
   advantages: {
     title: string;
@@ -23,5 +23,5 @@ export class TopPageModel {
   }[];
   seoText: string;
   tagsTitle: string;
-  tags: string[]
+  tags: string[];
 }
