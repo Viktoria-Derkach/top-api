@@ -14,7 +14,6 @@ import { ConfigService } from '@nestjs/config';
 
 @Controller('top-page')
 export class TopPageController {
-  constructor(private readonly configService: ConfigService) {}
   @Post('create')
   async create(@Body() dto: Omit<TopPageModel, '_id'>) {}
 
