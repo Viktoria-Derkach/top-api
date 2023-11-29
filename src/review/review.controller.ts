@@ -3,15 +3,15 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   HttpException,
   HttpStatus,
   Param,
   Post,
 } from '@nestjs/common';
-import { ReviewModel } from './review.model';
 import { CreateReviewDto } from './dto/create-review.dto';
-import { ReviewService } from './review.service';
 import { REVIEW_NOT_FOUND } from './review.constants';
+import { ReviewService } from './review.service';
 
 @Controller('review')
 export class ReviewController {
@@ -25,15 +25,13 @@ export class ReviewController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     const deletedDoc = await this.reviewService.delete(id);
-
     if (!deletedDoc) {
       throw new HttpException(REVIEW_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
-    return deletedDoc;
   }
 
   @Get('byProduct/:productId')
-  async byProduct(@Param('productId') productId: string) {
+  async getByProduct(@Param('productId') productId: string) {
     return this.reviewService.findByProductId(productId);
   }
 }
