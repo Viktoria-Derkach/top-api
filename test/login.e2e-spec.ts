@@ -14,7 +14,7 @@ const loginDto: AuthDto = {
   password: '2',
 };
 
-describe('Login (e2e)', () => {
+describe('AuthController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -26,14 +26,18 @@ describe('Login (e2e)', () => {
     await app.init();
   });
 
-  it('/login (POST) - success', () => {
+  it('/login (POST) - success', async (done) => {
     return request(app.getHttpServer())
       .post('/auth/login')
       .send(loginDto)
-      .expect(200);
+      .expect(200)
+      .then(({ body }: request.Response) => {
+        expect(body.access_token).toBeDefined();
+        done();
+      });
   });
 
-  it('/login (POST) - login fail', () => {
+  it('/login (POST) - fail login', () => {
     return request(app.getHttpServer())
       .post('/auth/login')
       .send({ ...loginDto, login: 'dssda@sdfsdf.com' })
@@ -44,7 +48,7 @@ describe('Login (e2e)', () => {
       });
   });
 
-  it('/login (POST) - password fail', () => {
+  it('/login (POST) - fail password', () => {
     return request(app.getHttpServer())
       .post('/auth/login')
       .send({ ...loginDto, password: '1' })
