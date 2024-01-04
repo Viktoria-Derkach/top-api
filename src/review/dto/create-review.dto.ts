@@ -17,7 +17,4 @@ export class CreateReviewDto {
 
   @IsString()
   productId: string;
-
-  @IsString()
-  typegooseName: string;
 }

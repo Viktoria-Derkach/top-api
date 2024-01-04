@@ -13,7 +13,7 @@ export class ReviewService {
   ) {}
 
   async create(dto: CreateReviewDto): Promise<DocumentType<ReviewModel>> {
-    return this.reviewModel.create(dto);
+    return this.reviewModel.create({ ...dto, typegooseName: 'custom' });
   }
 
   async delete(id: string): Promise<DocumentType<ReviewModel> | null> {

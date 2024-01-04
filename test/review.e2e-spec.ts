@@ -19,7 +19,6 @@ const testDto: CreateReviewDto = {
   description: 'Описание тестовое',
   rating: 5,
   productId,
-  typegooseName: 'ssd',
 };
 
 describe('AppController (e2e)', () => {
