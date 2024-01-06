@@ -2,10 +2,10 @@ import { prop } from '@typegoose/typegoose';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 
 export enum TopLevelCategory {
-  Courses,
-  Services,
-  Books,
-  Products,
+  Courses = 'Courses',
+  Services = 'Services',
+  Books = 'Books',
+  Products = 'Products',
 }
 
 export class HhData {

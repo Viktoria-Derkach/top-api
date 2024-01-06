@@ -34,7 +34,7 @@ export class ProductService {
       .aggregate([
         {
           $match: {
-            categories: 'react',
+            categories: dto.category,
           },
         },
         {
@@ -43,7 +43,7 @@ export class ProductService {
           },
         },
         {
-          $limit: 5,
+          $limit: dto.limit,
         },
         {
           $addFields: {
