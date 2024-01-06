@@ -16,12 +16,13 @@ import { FindTopPageDto } from './dto/find-top-page.dto';
 import { TopPageService } from './top-page.service';
 import { CreateTopPageDto } from './dto/create-top-page.dto';
 import { TOP_PAGE_NOT_FOUND_ERROR } from './top-page.constants';
-import { IdValidationPipe } from 'src/pipes/ad-validation.pipe';
+import { IdValidationPipe } from '../pipes/ad-validation.pipe';
 
 @Controller('top-page')
 export class TopPageController {
   constructor(private readonly topPageService: TopPageService) {}
 
+  @UsePipes(new ValidationPipe())
   @Post('create')
   async create(@Body() dto: CreateTopPageDto) {
     return this.topPageService.create(dto);
@@ -36,7 +37,6 @@ export class TopPageController {
     return page;
   }
 
-  @UsePipes(new ValidationPipe())
   @Get('getAll')
   async getAllPages() {
     const pages = await this.topPageService.findAllPages();
@@ -52,10 +52,11 @@ export class TopPageController {
     }
   }
 
+  @UsePipes(new ValidationPipe())
   @Patch(':id')
   async patch(
     @Param('id', IdValidationPipe) id: string,
-    @Body() dto: TopPageModel,
+    @Body() dto: CreateTopPageDto,
   ) {
     const updatedPage = await this.topPageService.updateById(id, dto);
     if (!updatedPage) {
