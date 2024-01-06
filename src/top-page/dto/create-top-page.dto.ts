@@ -9,7 +9,7 @@ import {
 import { TopLevelCategory } from '../top-page.model';
 import { Type } from 'class-transformer';
 
-export class HhData {
+export class HhDataDto {
   @IsNumber()
   count: number;
 
@@ -23,7 +23,7 @@ export class HhData {
   seniorSalary: number;
 }
 
-class TopPageAdvantage {
+class TopPageAdvantageDto {
   @IsString()
   title: string;
 
@@ -49,13 +49,13 @@ export class CreateTopPageDto {
 
   @IsOptional()
   @ValidateNested()
-  @Type(() => HhData)
-  hh?: HhData;
+  @Type(() => HhDataDto)
+  hh?: HhDataDto;
 
   @IsArray()
   @ValidateNested()
-  @Type(() => TopPageAdvantage)
-  advantages: TopPageAdvantage[];
+  @Type(() => TopPageAdvantageDto)
+  advantages: TopPageAdvantageDto[];
 
   @IsString()
   seoText: string;
