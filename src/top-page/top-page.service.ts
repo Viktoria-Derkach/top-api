@@ -40,4 +40,15 @@ export class TopPageService {
   async findByAlias(alias: string) {
     return this.topPageModel.findOne({ alias }).exec();
   }
+
+  async findByText(text: string) {
+    return this.topPageModel
+      .find({
+        $text: {
+          $search: text,
+          $caseSensitive: false,
+        },
+      })
+      .exec();
+  }
 }
