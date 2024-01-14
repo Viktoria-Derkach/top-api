@@ -51,8 +51,8 @@ export class TopPageController {
   }
 
   @Get('getAll')
-  async getAllPages() {
-    const pages = await this.topPageService.findAllPages();
+  async getAll() {
+    const pages = await this.topPageService.findAll();
 
     return pages;
   }

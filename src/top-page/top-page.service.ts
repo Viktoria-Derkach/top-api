@@ -47,7 +47,7 @@ export class TopPageService {
       .exec();
   }
 
-  async findAllPages() {
+  async findAll() {
     return this.topPageModel.find({}).exec();
   }
   async findByAlias(alias: string) {
