@@ -11,6 +11,8 @@ import { getMongoConfig } from './configs/mongo.config';
 import { FilesModule } from './files/files.module';
 import { SitemapModule } from './sitemap/sitemap.module';
 import { TelegramModule } from './telegram/telegram.module';
+import { getTelegramConfig } from './configs/telegram.config';
+import { SwapiModule } from './swapi/swapi.module';
 
 @Module({
   imports: [
@@ -26,7 +28,12 @@ import { TelegramModule } from './telegram/telegram.module';
     ReviewModule,
     FilesModule,
     SitemapModule,
-    TelegramModule,
+    TelegramModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: getTelegramConfig,
+    }),
+    SwapiModule,
   ],
   controllers: [AppController],
   providers: [AppService],
