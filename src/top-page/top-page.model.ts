@@ -17,6 +17,8 @@ export class HhData {
   middleSalary: number;
   @prop()
   seniorSalary: number;
+  @prop()
+  updatedAt: Date;
 }
 
 export class TopPageAdvantage {
