@@ -24,7 +24,7 @@ export class HhDataDto {
   seniorSalary: number;
 
   @IsDate()
-  updatedAt: number;
+  updatedAt: Date;
 }
 
 class TopPageAdvantageDto {

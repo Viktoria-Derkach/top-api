@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { HttpModule, Module } from '@nestjs/common';
 import { SwapiService } from './swapi.service';
-import { TopPageModule } from '../top-page/top-page.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   providers: [SwapiService],
-  imports: [TopPageModule],
+  imports: [ConfigModule, HttpModule],
+  exports: [SwapiService],
 })
 export class SwapiModule {}

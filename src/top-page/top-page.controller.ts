@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  Logger,
   NotFoundException,
   Param,
   Patch,
@@ -19,10 +20,15 @@ import { CreateTopPageDto } from './dto/create-top-page.dto';
 import { TOP_PAGE_NOT_FOUND_ERROR } from './top-page.constants';
 import { IdValidationPipe } from '../pipes/ad-validation.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { SwapiService } from 'src/swapi/swapi.service';
+import { resolve } from 'path';
 
 @Controller('top-page')
 export class TopPageController {
-  constructor(private readonly topPageService: TopPageService) {}
+  constructor(
+    private readonly topPageService: TopPageService,
+    private readonly swapiService: SwapiService,
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe())
@@ -90,5 +96,27 @@ export class TopPageController {
   @Get('textSearch/:text')
   async textSearch(@Param('text') text: string) {
     return this.topPageService.findByText(text);
+  }
+
+  @Post('test')
+  async test() {
+    const data = await this.topPageService.findForHhUpdate(new Date());
+    console.log(data, 'data');
+
+    for (let page of data) {
+      const hhData = await this.swapiService.getData(page.category);
+      Logger.log(hhData);
+      page.hh = hhData;
+      await this.sleep();
+      await this.topPageService.updateById(page._id, page);
+    }
+  }
+
+  sleep() {
+    return new Promise<void>((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 100);
+    });
   }
 }
